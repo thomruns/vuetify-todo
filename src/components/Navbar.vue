@@ -1,6 +1,6 @@
 <template>
   <nav>
-    
+
     <v-toolbar flat app>
       <v-toolbar-side-icon class="grey--text" @click="drawer=!drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="text-uppercase grey--text">
@@ -14,7 +14,7 @@
       </v-btn>
     </v-toolbar>
 
-    <v-navigation-drawer app v-model="drawer" class="indigo"></v-navigation-drawer>
+    <v-navigation-drawer app v-model="drawer" class="primary"></v-navigation-drawer>
 
   </nav>
 </template>
