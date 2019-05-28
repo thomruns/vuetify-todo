@@ -2,7 +2,7 @@
   <div class="dashboard">
     <h1 class="subheading grey--text">Dashboard</h1>
     <v-container class="my-5">
-      
+      <!-- cycle through data and output -->
       <v-card flat v-for="project in projects" :key="project.title">
         <v-layout row wrap :class="`pa-3 project ${project.status}`">
           <v-flex xs12 md6>
@@ -18,8 +18,9 @@
             <div>{{ project.due }}</div>
           </v-flex>
           <v-flex xs2 sm4 md2>
-            <div class="caption grey--text">Status</div>
-            <div>{{ project.status }}</div>
+            <div class="right">
+              <v-chip small :class="`${project.status} white--text caption my-2`">{{ project.status }}</v-chip>
+            </div>
           </v-flex>
         </v-layout>
         <v-divider></v-divider>
@@ -27,11 +28,9 @@
 
     </v-container>
   </div>
-  
 </template>
 
 <script>
-  
   export default {
     data() {
       return {
@@ -43,7 +42,6 @@
         ]
       }
     }
-
   }
 </script>
 
@@ -51,10 +49,19 @@
   .project.complete {
     border-left: 4px solid #3cd1c2;
   }
-  .project.ongoing{
+  .project.ongoing {
   border-left: 4px solid #ffaa2c;
   }
-  .project.overdue{
+  .project.overdue {
     border-left: 4px solid #f83e70;
+  }
+  .v-chip.complete {
+    background: #3cd1c2;
+  }
+  .v-chip.ongoing {
+    background: #ffaa2c
+  }
+  .v-chip.overdue {
+    background: #f83e70;
   }
 </style>
