@@ -24,6 +24,7 @@
 
 <script>
 import format from 'date-fns/format'
+import db from '@/fbase' // import the firebase database
 
 export default {
   data() {
@@ -39,7 +40,16 @@ export default {
   methods: {
     submit() {
       if(this.$refs.form.validate()) {
-        console.log(this.title, this.content)
+        const project = {
+          title: this.title,
+          content: this.content,
+          due: format(this.due, 'do MMM YYYY'),
+          person: 'Thom',
+          status: 'ongoing'
+        }
+        db.collection('projects').add(project).then(() => {
+          console.log('added to db')
+        })
       }
     }
   },

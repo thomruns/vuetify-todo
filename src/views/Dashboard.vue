@@ -19,7 +19,7 @@
           <span>Sort by team member name</span>
         </v-tooltip>
         <v-tooltip top>
-          <v-btn small flat color="grey" @click="sortBy('statusCode')" slot="activator">
+          <v-btn small flat color="grey" @click="sortBy('status')" slot="activator">
             <v-icon left small>assignment</v-icon>
             <span class="caption text-lowercase">By status</span>
           </v-btn>
