@@ -53,8 +53,16 @@ export default {
         db.collection('projects').add(project).then(() => {
           this.loading = false;
           this.dialog = false;
+          this.$emit('projectAdded');
+        }).then(() => {
+          this.clearFields();
         })
-      }
+      } 
+    },
+    clearFields() {
+      this.title = '';
+      this.content = '';
+      this.due = null;
     }
   },
   computed: {
