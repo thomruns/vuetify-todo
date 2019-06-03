@@ -56,21 +56,32 @@
 </template>
 
 <script>
+import db from '@/fbase'
+
   export default {
     data() {
       return {
-        projects: [
-        { title: 'Design a new website', person: 'Thom', due: '1st Jul 2019', status: 'ongoing', statusCode: 2, content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-        { title: 'Code up the homepage', person: 'Lisa', due: '10th Jan 2019', status: 'complete', statusCode: 3, content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-        { title: 'Design video thumbnails', person: 'Janice', due: '20th Dec 2018', status: 'complete', statusCode: 3, content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-        { title: 'Create a community forum', person: 'Richard', due: '20th Oct 2018', status: 'overdue', statusCode: 1, content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-        ]
+        projects: []
       }
     },
     methods: {
       sortBy(prop) {
         this.projects.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
       }
+    },
+    created() {
+      db.collection('projects').onSnapshot(res => {
+        const changes = res.docChanges();
+
+        changes.forEach(change => {
+          if(change.type === 'added') {
+            this.projects.push({
+              ...change.doc.data(),
+              id: change.doc.id
+            })
+          }
+        })
+      })
     }
   }
 </script>
